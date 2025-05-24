@@ -13,6 +13,7 @@ class BaseService {
       return await modelToUse.create({ data });
     } catch (e) {
       console.log(e);
+      throw e;
     } 
   }
 
@@ -21,6 +22,7 @@ class BaseService {
       return await this.model.findMany();
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 
@@ -31,6 +33,7 @@ class BaseService {
       return item;
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 
@@ -43,6 +46,7 @@ class BaseService {
       });
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 
@@ -51,6 +55,7 @@ class BaseService {
       return await this.model.delete({ where: { id: Number(id) } });
     } catch (e) {
       console.log(e);
+      throw e;
     } 
   }
 
@@ -62,6 +67,7 @@ class BaseService {
       }
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 }

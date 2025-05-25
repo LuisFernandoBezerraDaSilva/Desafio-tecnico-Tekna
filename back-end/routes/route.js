@@ -2,10 +2,11 @@ const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
 const authController = require('../controllers/authController');
 const taskController = require('../controllers/taskController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
-router.post('/auth/register', authController.register);
+router.post('/auth/register', userController.create);
 router.post('/auth/login', authController.login);
 
 router.get('/tasks', authenticateToken, taskController.getAll);

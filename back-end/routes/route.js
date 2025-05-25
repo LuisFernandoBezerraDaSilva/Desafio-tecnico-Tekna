@@ -1,17 +1,16 @@
 const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
 const authController = require('../controllers/authController');
+const taskController = require('../controllers/taskController');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Hello, Node.js!');
-});
+router.post('/auth/register', authController.register);
+router.post('/auth/login', authController.login);
 
-router.get('/protected', authenticateToken, (req, res) => {
-  res.send('That is a protected route');
-});
-
-
+router.get('/tasks', authenticateToken, taskController.getAll);
+router.post('/tasks', authenticateToken, taskController.create);
+router.put('/tasks/:id', authenticateToken, taskController.update);
+router.delete('/tasks/:id', authenticateToken, taskController.delete);
 
 module.exports = router;

@@ -6,15 +6,6 @@ class AuthController extends BaseController {
     super(service);
   }
 
-  async register(req, res) {
-    try {
-      const user = await this.service.register(req.body);
-      res.status(201).json(user);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  }
-
   async login(req, res) {
     const { username, password } = req.body;
     try {

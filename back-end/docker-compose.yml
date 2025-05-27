@@ -1,0 +1,39 @@
+services:
+  api:
+    build:
+      context: ./ # Define o diretório raiz do projeto como contexto
+      dockerfile: ./Dockerfile # Caminho correto para o Dockerfile dentro do diretório `back-end`
+    ports:
+      - "3000:3000" # Mapeia a porta 3000 do container para a porta 3000 do host
+    environment:
+      DATABASE_URL: "postgresql://user:password@db:5432/database" # Ajuste conforme necessário
+    volumes:
+      - ./:/app # Mapeia o diretório raiz do projeto para o container
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ../front-end
+      dockerfile: ./Dockerfile
+    ports:
+      - "4200:4200" # Mapeia a porta 4200 do container para a porta 4200 do host
+    volumes:
+      - ../front-end:/app # Mapeia o diretório do front-end para o container
+    stdin_open: true
+    tty: true
+    command: sh -c "npm install && npx ng serve --host 0.0.0.0" # Configura o Angular CLI para ouvir em todas as interfaces
+
+volumes:
+  postgres_data:

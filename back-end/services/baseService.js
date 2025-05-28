@@ -28,7 +28,7 @@ class BaseService {
 
   async getOne(id) {
     try{
-      const item = await this.model.findUnique({ where: { id: Number(id) } });
+      const item = await this.model.findUnique({ where: { id: id } });
       if (!item) throw new Error('Item not found');
       return item;
     } catch (e) {
@@ -41,7 +41,7 @@ class BaseService {
     try{
       this.validate(data, this.schema);
       return await this.model.update({
-        where: { id: Number(id) },
+        where: { id: id },
         data,
       });
     } catch (e) {
@@ -52,7 +52,7 @@ class BaseService {
 
   async delete(id) {
     try {
-      return await this.model.delete({ where: { id: Number(id) } });
+      return await this.model.delete({ where: { id: id } });
     } catch (e) {
       console.log(e);
       throw e;

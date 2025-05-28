@@ -32,13 +32,13 @@ class AuthService extends BaseService {
     }
 
     const accessToken = this.generateAccessToken(user);
-
+    
     await this.model.update({
       where: { id: user.id },
       data: { token: accessToken },
     });
 
-    return { accessToken, userId: user.id };
+    return { token:accessToken, userId: user.id };
   }
 }
 

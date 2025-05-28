@@ -1,7 +1,50 @@
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log('Checking if the database already contains data...');
+
+  const existingUsers = await prisma.user.findFirst();
+  if (existingUsers) {
+    console.log('Data already exists in the database. Seed will not be executed.');
+    return;
+  }
+
+  console.log('Creating admin user...');
+  const saltRounds = 10;
+  const adminPassword = bcrypt.hashSync('admin123', saltRounds);
+
+  const admin = await prisma.user.create({
+    data: {
+      username: 'admin',
+      password: adminPassword,
+    },
+  });
+
+  console.log('Admin user created:', admin);
+
+  console.log('Creating tasks...');
+  await prisma.task.createMany({
+    data: [
+      {
+        title: 'First Task',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        userId: admin.id,
+      },
+      {
+        title: 'Second Task',
+        description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        userId: admin.id,
+      },
+      {
+        title: 'Third Task',
+        description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+        userId: admin.id,
+      },
+    ],
+  });
+  console.log('Tasks created successfully.');
 }
 
 main()

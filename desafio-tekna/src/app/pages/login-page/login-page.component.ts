@@ -41,7 +41,13 @@ export class LoginPageComponent extends BasePageComponent {
     super();
   }
 
-  login() {
+   login(form: any) {
+    if (form.invalid) {
+      this.snackBar.open('Please fill in all required fields!', 'Close', { duration: 3000 });
+      form.controls.username?.control.markAsTouched();
+      form.controls.password?.control.markAsTouched();
+      return;
+    }
     const loginSubscription = this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
         this.storageService.setToken(response.token); 

@@ -52,7 +52,14 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
     });
   }
 
-  saveTask(): void {
+  saveTask(form?: any): void {
+    if (form && form.invalid) {
+      this.snackBar.open('Please fill in all required fields!', 'Close', { duration: 3000 });
+      form.controls.title?.control.markAsTouched();
+      form.controls.description?.control.markAsTouched();
+      form.controls.date?.control.markAsTouched();
+      return;
+    }
     const userId = this.storageService.getUserId();
     if (!userId) {
       this.snackBar.open('Error: User not authenticated!', 'Close', { duration: 3000 });
@@ -69,24 +76,20 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
     if (this.taskId) {
       this.taskService.updateTask(this.taskId, taskPayload).subscribe({
         next: (response: any) => {
-          console.log('Task updated successfully', response);
           this.snackBar.open('Task updated successfully!', 'Close', { duration: 3000 });
           this.router.navigate(['/tasks']);
         },
         error: (err: any) => {
-          console.error('Error updating task', err);
           this.snackBar.open('Error updating task!', 'Close', { duration: 3000 });
         }
       });
     } else {
       this.taskService.createTask(taskPayload).subscribe({
         next: (response: any) => {
-          console.log('Task created successfully', response);
           this.snackBar.open('Task created successfully!', 'Close', { duration: 3000 });
           this.router.navigate(['/tasks']);
         },
         error: (err: any) => {
-          console.error('Error creating task', err);
           this.snackBar.open('Error creating task!', 'Close', { duration: 3000 });
         }
       });

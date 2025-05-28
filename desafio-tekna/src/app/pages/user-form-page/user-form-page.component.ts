@@ -42,16 +42,19 @@ export class UserFormPageComponent extends BasePageComponent {
     super();
   }
 
-  createUser(): void {
-    console.log('Criar conta chamada');
+   createUser(form: any): void {
+    if (form.invalid) {
+      this.snackBar.open('Preencha todos os campos obrigatórios!', 'Fechar', { duration: 3000 });
+      form.controls.username?.control.markAsTouched();
+      form.controls.password?.control.markAsTouched();
+      return;
+    }
     this.userService.createUser({ username: this.username, password: this.password }).subscribe({
       next: (response: any) => {
-        console.log('Conta criada com sucesso', response);
         this.snackBar.open('Conta criada com sucesso!', 'Fechar', { duration: 3000 });
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        console.error('Erro ao criar conta', err);
         this.snackBar.open('Erro ao criar conta!', 'Fechar', { duration: 3000 });
       }
     });

@@ -1,19 +1,19 @@
 services:
   api:
     build:
-      context: ./ # Define o diretório raiz do projeto como contexto
-      dockerfile: ./Dockerfile # Caminho correto para o Dockerfile dentro do diretório `back-end`
+      context: ./ 
+      dockerfile: ./Dockerfile 
     ports:
-      - "3000:3000" # Mapeia a porta 3000 do container para a porta 3000 do host
+      - "3000:3000" 
     environment:
-      DATABASE_URL: "postgresql://user:password@db:5432/database" # Ajuste conforme necessário
+      DATABASE_URL: "postgresql://user:password@db:5432/database" 
     volumes:
-      - ./:/app # Mapeia o diretório raiz do projeto para o container
+      - ./:/app 
     depends_on:
       - db
 
   db:
-    image: postgres:14
+    image: postgres:17
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -28,12 +28,12 @@ services:
       context: ../desafio-tekna
       dockerfile: ./Dockerfile
     ports:
-      - "4200:4200" # Mapeia a porta 4200 do container para a porta 4200 do host
+      - "4200:4200" 
     volumes:
-      - ../desafio-tekna:/app # Mapeia o diretório do desafio-tekna para o container
+      - ../desafio-tekna:/app 
     stdin_open: true
     tty: true
-    command: sh -c "npm install && npx ng serve --host 0.0.0.0" # Configura o Angular CLI para ouvir em todas as interfaces
+    command: sh -c "npm install && npx ng serve --host 0.0.0.0"
 
 volumes:
   postgres_data:

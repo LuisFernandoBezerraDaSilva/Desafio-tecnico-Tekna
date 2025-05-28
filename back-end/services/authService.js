@@ -4,6 +4,7 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
+const logger = require('./logService');
 
 class AuthService extends BaseService {
   constructor() {

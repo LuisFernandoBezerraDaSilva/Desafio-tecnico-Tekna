@@ -55,7 +55,7 @@ export class UserFormPageComponent extends BasePageComponent {
         this.router.navigate(['/login']);
       },
       error: (err: any) => {
-        this.snackBar.open('Error creating account', 'Close', { duration: 3000 });
+        this.snackBar.open(err.error.error, 'Close', { duration: 3000 });
       }
     });
   }

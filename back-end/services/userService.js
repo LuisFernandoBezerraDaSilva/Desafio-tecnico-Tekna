@@ -3,6 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const userSchema = require('../schemas/userSchema');
 const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
+const logger = require('./logService');
 
 class UserService extends BaseService {
   constructor() {

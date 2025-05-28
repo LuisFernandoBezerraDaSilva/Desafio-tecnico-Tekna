@@ -8,8 +8,8 @@ import { StorageService } from './storage.service';
 })
 export class UserService extends BaseService<any> {
 
-  constructor(http: HttpClient, storageService: StorageService) {
-    super(http, storageService); 
+  constructor(http: HttpClient) {
+    super(http); 
   }
 
   createUser(user: { username: string; password: string }) {

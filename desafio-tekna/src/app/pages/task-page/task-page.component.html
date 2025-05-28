@@ -4,8 +4,8 @@
 
     <mat-card-title>
       <div style="display: flex; justify-content: space-between; align-items: center; margin: 0px 2%;">
-        <span>Lista de Tarefas</span>
-        <button mat-raised-button color="primary" (click)="createNewTask()">Nova Tarefa</button>
+        <span>Task List</span>
+        <button mat-raised-button color="primary" (click)="createNewTask()">New Task</button>
       </div>
     </mat-card-title>
     <mat-card-content>
@@ -17,21 +17,21 @@
         </ng-container>
 
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef>Título</th>
+          <th mat-header-cell *matHeaderCellDef>Title</th>
           <td mat-cell *matCellDef="let task">{{ task.title }}</td>
         </ng-container>
 
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>Descrição</th>
+          <th mat-header-cell *matHeaderCellDef>Description</th>
           <td mat-cell *matCellDef="let task">{{ task.description }}</td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef class="actions-column-title">Ações</th>
+          <th mat-header-cell *matHeaderCellDef class="actions-column-title">Actions</th>
           <td mat-cell *matCellDef="let task" class="actions-column">
             <div style="display: flex; gap: 10px;">
-              <button mat-raised-button color="primary" (click)="editTask(task)">Editar</button>
-              <button mat-raised-button color="warn" (click)="deleteTask(task.id)">Deletar</button>
+              <button mat-raised-button color="primary" (click)="editTask(task)">Edit</button>
+              <button mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button>
             </div>
           </td>
         </ng-container>
@@ -41,7 +41,7 @@
       </table>
 
       <div *ngIf="tasks.length === 0" style="text-align: center; margin-top: 20px;">
-        <p>Sem registros de tarefas criados!</p>
+        <p>No task records created!</p>
       </div>
     </mat-card-content>
   </ng-container>

@@ -45,28 +45,28 @@ export class TaskPageComponent implements OnInit {
   }
 
   fetchTasks(): void {
-  this.isLoading = true; 
-  this.taskService.getAllTasks().subscribe({
-    next: (data) => {
-      this.tasks = data;
-      this.isLoading = false; 
-    },
-    error: (err) => {
-      console.error('Erro ao buscar tarefas:', err);
-      this.isLoading = false; 
-    }
-  });
-}
+    this.isLoading = true; 
+    this.taskService.getAllTasks().subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.isLoading = false; 
+      },
+      error: (err) => {
+        console.error('Error fetching tasks:', err);
+        this.isLoading = false; 
+      }
+    });
+  }
 
   deleteTask(taskId: string): void {
     this.taskService.deleteTask(taskId).subscribe({
       next: () => {
-        this.snackBar.open('Tarefa deletada com sucesso!', 'Fechar', { duration: 3000 });
+        this.snackBar.open('Task deleted successfully!', 'Close', { duration: 3000 });
         this.fetchTasks();
       },
       error: (err) => {
-        console.error('Erro ao deletar tarefa:', err);
-        this.snackBar.open('Erro ao deletar tarefa!', 'Fechar', { duration: 3000 });
+        console.error('Error deleting task:', err);
+        this.snackBar.open('Error deleting task!', 'Close', { duration: 3000 });
       }
     });
   }

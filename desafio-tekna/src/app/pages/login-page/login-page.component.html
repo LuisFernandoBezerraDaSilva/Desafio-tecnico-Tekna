@@ -3,11 +3,11 @@
   <mat-card-content>
     <form>
       <mat-form-field appearance="fill">
-        <mat-label>Usuário</mat-label>
+        <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="username" name="username">
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Senha</mat-label>
+        <mat-label>Password</mat-label>
         <input matInput [(ngModel)]="password" name="password" type="password">
       </mat-form-field>
     </form>
@@ -16,6 +16,6 @@
     <button mat-raised-button color="primary" (click)="login()">Login</button> <br>
   </mat-card-actions>
   <p style="text-align: center; margin-top: 8px;">
-    <a style="color: blue; text-decoration: underline; cursor: pointer;" (click)="createAccount()">Criar conta</a>
+    <a style="color: blue; text-decoration: underline; cursor: pointer;" (click)="createAccount()">Create account</a>
   </p>
 </mat-card>

@@ -42,10 +42,8 @@ export class LoginPageComponent extends BasePageComponent {
   }
 
   login() {
-    console.log('Login method called');
     const loginSubscription = this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
-        console.log('Login successful', response);
         this.storageService.setToken(response.token); 
         this.storageService.setUserId(response.userId); 
         this.router.navigate(['/tasks']); 
@@ -53,9 +51,9 @@ export class LoginPageComponent extends BasePageComponent {
       error: (err) => {
         console.error('Login failed', err);
         if (err.status === 401) {
-          this.snackBar.open('Senha incorreta!', 'Fechar', { duration: 3000 });
+          this.snackBar.open('Incorrect password!', 'Close', { duration: 3000 });
         } else {
-          this.snackBar.open('Erro ao fazer login!', 'Fechar', { duration: 3000 });
+          this.snackBar.open('Error logging in!', 'Close', { duration: 3000 });
         }
       }
     });
@@ -64,7 +62,7 @@ export class LoginPageComponent extends BasePageComponent {
   }
 
   createAccount(): void {
-    console.log('Redirecionar para a página de criação de conta');
+    console.log('Redirecting to account creation page');
     this.router.navigate(['/user']);
   }
 }

@@ -55,7 +55,7 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
   saveTask(): void {
     const userId = this.storageService.getUserId();
     if (!userId) {
-      this.snackBar.open('Erro: Usuário não autenticado!', 'Fechar', { duration: 3000 });
+      this.snackBar.open('Error: User not authenticated!', 'Close', { duration: 3000 });
       return;
     }
 
@@ -69,25 +69,25 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
     if (this.taskId) {
       this.taskService.updateTask(this.taskId, taskPayload).subscribe({
         next: (response: any) => {
-          console.log('Tarefa atualizada com sucesso', response);
-          this.snackBar.open('Tarefa atualizada com sucesso!', 'Fechar', { duration: 3000 });
+          console.log('Task updated successfully', response);
+          this.snackBar.open('Task updated successfully!', 'Close', { duration: 3000 });
           this.router.navigate(['/tasks']);
         },
         error: (err: any) => {
-          console.error('Erro ao atualizar tarefa', err);
-          this.snackBar.open('Erro ao atualizar tarefa!', 'Fechar', { duration: 3000 });
+          console.error('Error updating task', err);
+          this.snackBar.open('Error updating task!', 'Close', { duration: 3000 });
         }
       });
     } else {
       this.taskService.createTask(taskPayload).subscribe({
         next: (response: any) => {
-          console.log('Tarefa criada com sucesso', response);
-          this.snackBar.open('Tarefa criada com sucesso!', 'Fechar', { duration: 3000 });
+          console.log('Task created successfully', response);
+          this.snackBar.open('Task created successfully!', 'Close', { duration: 3000 });
           this.router.navigate(['/tasks']);
         },
         error: (err: any) => {
-          console.error('Erro ao criar tarefa', err);
-          this.snackBar.open('Erro ao criar tarefa!', 'Fechar', { duration: 3000 });
+          console.error('Error creating task', err);
+          this.snackBar.open('Error creating task!', 'Close', { duration: 3000 });
         }
       });
     }

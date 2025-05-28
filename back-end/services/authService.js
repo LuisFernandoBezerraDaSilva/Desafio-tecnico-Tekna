@@ -18,6 +18,12 @@ class AuthService extends BaseService {
     return await this.model.findUnique({ where: { username } });
   }
 
+  generateAccessToken(user) {
+    const secretKey = process.env.JWT_SECRET;
+    const expiresIn = process.env.JWT_EXPIRATION || '15m';
+    return jwt.sign({ id: user.id }, secretKey, { expiresIn });
+  }
+
   async authenticate(username, password) {
     const user = await this.findByUsername(username);
 
@@ -29,7 +35,7 @@ class AuthService extends BaseService {
 
     await this.model.update({
       where: { id: user.id },
-      data: { refreshToken },
+      data: { token: accessToken },
     });
 
     return { accessToken, userId: user.id };

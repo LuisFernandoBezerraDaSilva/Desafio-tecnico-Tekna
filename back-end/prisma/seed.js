@@ -36,18 +36,21 @@ async function main() {
         title: 'First Task',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         userId: admin.id,
+        date: '2024-05-01',
       },
       {
         id: uuidv4(),
         title: 'Second Task',
         description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         userId: admin.id,
+        date: '2024-05-15',
       },
       {
         id: uuidv4(),
         title: 'Third Task',
         description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
         userId: admin.id,
+        date: '2024-06-01',
       },
     ],
   });

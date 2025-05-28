@@ -25,12 +25,12 @@ services:
 
   frontend:
     build:
-      context: ../front-end
+      context: ../desafio-tekna
       dockerfile: ./Dockerfile
     ports:
       - "4200:4200" # Mapeia a porta 4200 do container para a porta 4200 do host
     volumes:
-      - ../front-end:/app # Mapeia o diretório do front-end para o container
+      - ../desafio-tekna:/app # Mapeia o diretório do desafio-tekna para o container
     stdin_open: true
     tty: true
     command: sh -c "npm install && npx ng serve --host 0.0.0.0" # Configura o Angular CLI para ouvir em todas as interfaces

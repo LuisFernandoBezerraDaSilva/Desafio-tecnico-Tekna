@@ -29,7 +29,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 })
 export class TaskPageComponent implements OnInit {
   tasks: any[] = []; 
-  displayedColumns: string[] = ['id', 'title', 'description', 'actions'];
+  displayedColumns: string[] = ['date', 'title', 'description', 'actions'];
   isLoading = true;
 
   constructor(

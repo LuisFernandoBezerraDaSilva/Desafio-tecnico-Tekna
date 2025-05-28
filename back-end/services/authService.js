@@ -15,30 +15,45 @@ class AuthService extends BaseService {
   }
 
   async findByUsername(username) {
-    return await this.model.findUnique({ where: { username } });
+    try {
+      return await this.model.findUnique({ where: { username } });
+    } catch (e) {
+      logger.logError(e);
+      throw new Error('Error finding user by username');
+    }
   }
 
   generateAccessToken(user) {
-    const secretKey = process.env.JWT_SECRET;
-    const expiresIn = process.env.JWT_EXPIRATION || '15m';
-    return jwt.sign({ id: user.id }, secretKey, { expiresIn });
+    try {
+      const secretKey = process.env.JWT_SECRET;
+      const expiresIn = process.env.JWT_EXPIRATION || '15m';
+      return jwt.sign({ id: user.id }, secretKey, { expiresIn });
+    } catch (e) {
+      logger.logError(e);
+      throw new Error('Error generating access token');
+    }
   }
 
   async authenticate(username, password) {
-    const user = await this.findByUsername(username);
+    try {
+      const user = await this.findByUsername(username);
 
-    if (!user || !bcrypt.compareSync(password, user.password)) {
-      throw new Error('Invalid credentials');
+      if (!user || !bcrypt.compareSync(password, user.password)) {
+        throw new Error('Invalid credentials');
+      }
+
+      const accessToken = this.generateAccessToken(user);
+
+      await this.model.update({
+        where: { id: user.id },
+        data: { token: accessToken },
+      });
+
+      return { token: accessToken, userId: user.id };
+    } catch (e) {
+      logger.logError(e);
+      throw new Error('Error authenticating user');
     }
-
-    const accessToken = this.generateAccessToken(user);
-    
-    await this.model.update({
-      where: { id: user.id },
-      data: { token: accessToken },
-    });
-
-    return { token:accessToken, userId: user.id };
   }
 }
 

@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const logger = require('./logService');
 
 class BaseService {
   constructor(model, schema) {
@@ -12,8 +12,8 @@ class BaseService {
       const modelToUse = model ? model : this.model;
       return await modelToUse.create({ data });
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e); 
+      throw new Error(`Error creating record for ${this.schema?._type || 'entity'}`);
     } 
   }
 
@@ -21,8 +21,8 @@ class BaseService {
     try {
       return await this.model.findMany();
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e);
+      throw new Error(`Error getting records for ${this.schema?._type || 'entity'}`);
     }
   }
 
@@ -32,8 +32,8 @@ class BaseService {
       if (!item) throw new Error('Item not found');
       return item;
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e);
+      throw new Error(`Error getting record for ${this.schema?._type || 'entity'}`);
     }
   }
 
@@ -45,8 +45,8 @@ class BaseService {
         data,
       });
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e);
+      throw new Error(`Error editing record for ${this.schema?._type || 'entity'}`);
     }
   }
 
@@ -54,8 +54,8 @@ class BaseService {
     try {
       return await this.model.delete({ where: { id: id } });
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e);
+      throw new Error(`Error deleting record for ${this.schema?._type || 'entity'}`);
     } 
   }
 
@@ -66,8 +66,8 @@ class BaseService {
         throw new Error(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
       }
     } catch (e) {
-      console.log(e);
-      throw e;
+      logger.logError(e);
+      throw new Error(`Error validating record for ${this.schema?._type || 'entity'}`);
     }
   }
 }

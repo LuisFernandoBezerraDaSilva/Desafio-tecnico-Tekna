@@ -24,7 +24,7 @@ class TaskService extends BaseService {
 
       return tasks;
     } catch (e) {
-      console.log(e);
+      logger.logError(e);
       throw new Error('Error fetching tasks for user');
     }
   }

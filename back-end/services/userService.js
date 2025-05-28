@@ -20,7 +20,7 @@ class UserService extends BaseService {
 
       return await this.model.create({ data: userData });
     } catch (e) {
-      console.log(e);
+      logger.logError(e);
       throw new Error('Error creating user');
     }
   }
@@ -33,7 +33,7 @@ class UserService extends BaseService {
       if (!user) throw new Error('User not found');
       return user;
     } catch (e) {
-      console.log(e);
+      logger.logError(e);
       throw new Error('Error getting user');
     }
   }

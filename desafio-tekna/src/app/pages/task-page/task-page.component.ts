@@ -9,12 +9,14 @@ import { SharedModule } from '../../shared.module';
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { DateBrPipe } from '../../pipes/date-pipe';
 
 @Component({
   selector: 'app-task-page',
   standalone: true,
   imports: [
     CommonModule,
+    DateBrPipe,
     MatButtonModule,
     MatCardModule,
     FormsModule,

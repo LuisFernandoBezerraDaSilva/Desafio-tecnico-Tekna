@@ -8,6 +8,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../../shared.module';
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-task-page',
@@ -19,7 +20,8 @@ import { Router } from '@angular/router';
     FormsModule,
     MatSnackBarModule,
     MatTableModule,
-    SharedModule
+    SharedModule,
+    LoadingComponent
   ],
   providers: [TaskService],
   templateUrl: './task-page.component.html',
@@ -28,6 +30,7 @@ import { Router } from '@angular/router';
 export class TaskPageComponent implements OnInit {
   tasks: any[] = []; 
   displayedColumns: string[] = ['id', 'title', 'description', 'actions'];
+  isLoading = true;
 
   constructor(
     private taskService: TaskService, 
@@ -40,15 +43,18 @@ export class TaskPageComponent implements OnInit {
   }
 
   fetchTasks(): void {
-    this.taskService.getAllTasks().subscribe({
-      next: (data) => {
-        this.tasks = data;
-      },
-      error: (err) => {
-        console.error('Erro ao buscar tarefas:', err);
-      }
-    });
-  }
+  this.isLoading = true; 
+  this.taskService.getAllTasks().subscribe({
+    next: (data) => {
+      this.tasks = data;
+      this.isLoading = false; 
+    },
+    error: (err) => {
+      console.error('Erro ao buscar tarefas:', err);
+      this.isLoading = false; 
+    }
+  });
+}
 
   deleteTask(taskId: string): void {
     this.taskService.deleteTask(taskId).subscribe({

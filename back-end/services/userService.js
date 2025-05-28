@@ -10,20 +10,30 @@ class UserService extends BaseService {
   }
 
   async create(data) {
-    try {
-      this.validate(data, this.schema);
+  try {
+    this.validate(data, this.schema);
 
-      const saltRounds = 10;
-      const hashedPassword = bcrypt.hashSync(data.password, saltRounds);
-
-      const userData = { ...data, password: hashedPassword };
-
-      return await this.model.create({ data: userData });
-    } catch (e) {
-      logger.logError(e);
-      throw new Error('Error creating user');
+    const existingUser = await this.model.findUnique({
+      where: { username: data.username },
+    });
+    if (existingUser) {
+      throw new Error('Username already exists');
     }
+
+    const saltRounds = 10;
+    const hashedPassword = bcrypt.hashSync(data.password, saltRounds);
+
+    const userData = { ...data, password: hashedPassword };
+
+    return await this.model.create({ data: userData });
+  } catch (e) {
+    logger.logError(e);
+    if (e.message === 'Username already exists') {
+      throw new Error('Username already exists');
+    }
+    throw new Error('Error creating user');
   }
+}
 
   async getUserByUsername(username) {
     try {

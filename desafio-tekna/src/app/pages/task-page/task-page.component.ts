@@ -26,8 +26,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./task-page.component.scss']
 })
 export class TaskPageComponent implements OnInit {
-  tasks: any[] = []; // Array para armazenar as tarefas
-  displayedColumns: string[] = ['id', 'title', 'description', 'actions']; // Define as colunas da tabela
+  tasks: any[] = []; 
+  displayedColumns: string[] = ['id', 'title', 'description', 'actions'];
 
   constructor(
     private taskService: TaskService, 
@@ -50,7 +50,7 @@ export class TaskPageComponent implements OnInit {
     });
   }
 
-  deleteTask(taskId: number): void {
+  deleteTask(taskId: string): void {
     this.taskService.deleteTask(taskId).subscribe({
       next: () => {
         this.snackBar.open('Tarefa deletada com sucesso!', 'Fechar', { duration: 3000 });

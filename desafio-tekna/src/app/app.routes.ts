@@ -9,6 +9,6 @@ export const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'tasks', component: TaskPageComponent, canActivate: [authGuard] },
   { path: 'user', component: UserFormPageComponent },
-  { path: 'task', component: TaskFormPageComponent },
+  { path: 'task', component: TaskFormPageComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '' }
 ];

@@ -24,7 +24,7 @@ export class BaseService<T> {
     return this.http.get<T[]>(`${this.baseUrl}/${endpoint}`, { headers: this.getHeaders() });
   }
 
-  get(endpoint: string, id: number): Observable<T> {
+  get(endpoint: string, id: string): Observable<T> {
     return this.http.get<T>(`${this.baseUrl}/${endpoint}/${id}`, { headers: this.getHeaders() });
   }
 
@@ -32,11 +32,11 @@ export class BaseService<T> {
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, item, { headers: this.getHeaders() });
   }
 
-  update(endpoint: string, id: number, item: T): Observable<T> {
+  update(endpoint: string, id: string, item: T): Observable<T> {
     return this.http.put<T>(`${this.baseUrl}/${endpoint}/${id}`, item, { headers: this.getHeaders() });
   }
 
-  delete(endpoint: string, id: number): Observable<void> {
+  delete(endpoint: string, id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${endpoint}/${id}`, { headers: this.getHeaders() });
   }
 }

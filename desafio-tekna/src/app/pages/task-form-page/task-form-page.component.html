@@ -10,6 +10,10 @@
         <mat-label>Descrição</mat-label>
         <textarea matInput [(ngModel)]="description" name="description" required></textarea>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data</mat-label>
+        <input matInput [(ngModel)]="date" name="date" type="date" required>
+      </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions style="justify-content: center;">

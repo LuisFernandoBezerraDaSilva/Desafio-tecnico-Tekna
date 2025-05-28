@@ -30,6 +30,7 @@ import { SharedModule } from '../../shared.module';
 export class TaskFormPageComponent extends BasePageComponent implements OnInit {
   title: string = '';
   description: string = '';
+  date: string = '';
   taskId: string | null = null;
 
   constructor(
@@ -47,6 +48,7 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
       this.taskId = params['taskId'] || null;
       this.title = params['title'] || '';
       this.description = params['description'] || '';
+      this.date = params['date'] || '';
     });
   }
 
@@ -57,12 +59,15 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
       return;
     }
 
+    const taskPayload = {
+      title: this.title,
+      description: this.description,
+      userId: userId,
+      date: this.date
+    };
+
     if (this.taskId) {
-      this.taskService.updateTask(this.taskId, {
-        title: this.title,
-        description: this.description,
-        userId: userId
-      }).subscribe({
+      this.taskService.updateTask(this.taskId, taskPayload).subscribe({
         next: (response: any) => {
           console.log('Tarefa atualizada com sucesso', response);
           this.snackBar.open('Tarefa atualizada com sucesso!', 'Fechar', { duration: 3000 });
@@ -74,11 +79,7 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
         }
       });
     } else {
-      this.taskService.createTask({
-        title: this.title,
-        description: this.description,
-        userId: userId
-      }).subscribe({
+      this.taskService.createTask(taskPayload).subscribe({
         next: (response: any) => {
           console.log('Tarefa criada com sucesso', response);
           this.snackBar.open('Tarefa criada com sucesso!', 'Fechar', { duration: 3000 });

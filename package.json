@@ -1,0 +1,7 @@
+{
+  "name": "tekna-root",
+  "version": "1.0.0",
+  "scripts": {
+    "start:docker": "cd back-end && docker-compose up --build"
+  }
+}

@@ -15,17 +15,17 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
+  id       String  @id @default(uuid()) @db.Uuid
+  username String  @unique
   password String
   token    String?
   tasks    Task[]
 }
 
 model Task {
-  id          Int   @id @default(autoincrement())
+  id          String @id @default(uuid()) @db.Uuid
   title       String
   description String
-  userId      Int
-  user        User  @relation(fields: [userId], references: [id])
+  userId      String  @db.Uuid
+  user        User    @relation(fields: [userId], references: [id])
 }

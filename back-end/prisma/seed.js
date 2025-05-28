@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid'); 
 const prisma = new PrismaClient();
 
 async function main() {
@@ -15,8 +16,11 @@ async function main() {
   const saltRounds = 10;
   const adminPassword = bcrypt.hashSync('admin123', saltRounds);
 
+  const adminId = uuidv4(); 
+
   const admin = await prisma.user.create({
     data: {
+      id: adminId, 
       username: 'admin',
       password: adminPassword,
     },
@@ -28,16 +32,19 @@ async function main() {
   await prisma.task.createMany({
     data: [
       {
+        id: uuidv4(),
         title: 'First Task',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         userId: admin.id,
       },
       {
+        id: uuidv4(),
         title: 'Second Task',
         description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         userId: admin.id,
       },
       {
+        id: uuidv4(),
         title: 'Third Task',
         description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
         userId: admin.id,

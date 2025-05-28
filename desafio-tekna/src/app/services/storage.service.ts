@@ -23,9 +23,9 @@ export class StorageService {
     localStorage.setItem(this.userIdKey, userId.toString());
   }
 
-  getUserId(): number | null {
+  getUserId(): string | null {
     const userId = localStorage.getItem(this.userIdKey);
-    return userId ? parseInt(userId, 10) : null;
+    return userId;
   }
 
   clearUserId(): void {

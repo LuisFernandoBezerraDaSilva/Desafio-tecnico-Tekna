@@ -43,7 +43,6 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Obtém os parâmetros da URL via queryParams
     this.route.queryParams.subscribe(params => {
       this.taskId = params['taskId'] || null;
       this.title = params['title'] || '';
@@ -59,7 +58,6 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
     }
 
     if (this.taskId) {
-      // Atualiza a tarefa existente (PUT)
       this.taskService.updateTask(this.taskId, {
         title: this.title,
         description: this.description,
@@ -76,7 +74,6 @@ export class TaskFormPageComponent extends BasePageComponent implements OnInit {
         }
       });
     } else {
-      // Cria uma nova tarefa (POST)
       this.taskService.createTask({
         title: this.title,
         description: this.description,

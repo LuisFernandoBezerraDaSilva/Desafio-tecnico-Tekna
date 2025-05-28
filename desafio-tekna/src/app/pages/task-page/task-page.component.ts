@@ -80,7 +80,8 @@ export class TaskPageComponent implements OnInit {
       queryParams: {
         taskId: task.id,
         title: task.title,
-        description: task.description
+        description: task.description,
+        date: task.date
       }
     }); 
   }

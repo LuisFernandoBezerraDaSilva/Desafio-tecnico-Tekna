@@ -1,14 +1,14 @@
 services:
   api:
     build:
-      context: ./
-      dockerfile: ./Dockerfile
+      context: ./back-end
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: "postgresql://user:password@db:5432/database"
     volumes:
-      - ./:/app
+      - ./back-end:/app
       - /app/node_modules
     depends_on:
       - db
@@ -26,17 +26,17 @@ services:
 
   frontend:
     build:
-      context: ../desafio-tekna
-      dockerfile: ../desafio-tekna/Dockerfile
+      context: ./desafio-tekna
+      dockerfile: Dockerfile
     ports:
       - "4200:4200"
     volumes:
-      - ../desafio-tekna:/app
+      - ./desafio-tekna:/app
       - /app/node_modules
     stdin_open: true
     tty: true
     environment:
-    - NG_CLI_ANALYTICS=ci
+      - NG_CLI_ANALYTICS=ci
     command: npm start
 
 volumes:
